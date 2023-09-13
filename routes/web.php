@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminApplicationController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminJobController;
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\AdminUserManagementController;
 use App\Http\Controllers\Employer\EmployerAccountSettingsController;
 use App\Http\Controllers\Employer\EmployerApplicationController;
 use App\Http\Controllers\Employer\EmployerDashboardController;
@@ -54,6 +55,10 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('account_settings',[AdminAccountSettingsController::class,'index'])->name('admin.account_settings.index');
         Route::put('account_settings/password/update',[AdminAccountSettingsController::class,'changePassword'])->name('admin.account_settings.change_password');
 
+
+        Route::get('manage_user',[AdminUserManagementController::class,'index'])->name('admin.manage_users.index');
+        Route::get('manage_user/{user}/edit',[AdminUserManagementController::class,'edit'])->name('admin.manage_users.edit');
+        Route::put('manage_user/{user}/update',[AdminUserManagementController::class,'update'])->name('admin.manage_users.update');
 
     });
 

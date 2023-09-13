@@ -152,6 +152,13 @@
                                 <span class="hide-menu">Applications</span>
                             </a>
                         </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.manage_users.index') }}"
+                                aria-expanded="false">
+                                <i class="mdi mdi-account"></i>
+                                <span class="hide-menu">Manage User</span>
+                            </a>
+                        </li>
                         
                     </ul>
                 </nav>

@@ -60,8 +60,6 @@ class User extends Authenticatable
         return $this->hasOne(JobSeeker::class);
     }
 
-
-
     public function applications()
     {
         return $this->hasMany(Application::class, 'job_seeker_id');
