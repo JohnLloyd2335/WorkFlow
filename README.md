@@ -1,66 +1,111 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+App Name: WorkFlow
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Description:
+The job board application is a platform designed to facilitate the job search and recruitment process. It provides distinct user roles, including administrators, job seekers, and job posters, each with specific functionalities and access levels.
 
-## About Laravel
+Developer Skill: Advance Beginner
+Backend Framework: Laravel 10
+Frontend: HTML, CSS, Bootstrap, Blade ,JavaScript
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+User Roles:
+Admin:
+The administrator role has complete control over the application.
+Responsibilities include managing user accounts and roles, ensuring security, and overseeing overall functionality.
+Admins can view and edit user profiles and job listings.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Job Seeker:
+Job seekers are individuals actively looking for job opportunities.
+They can register, log in, and create user profiles.
+Job seekers can browse and search for job listings.
+They can submit job applications, track their status, and receive notifications.
+Profile updates include adding skills, educational background, and other relevant information.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Job Poster:
+Job posters represent companies or organizations looking to hire employees.
+They can register, log in, and create user profiles.
+Job posters can create detailed job listings, specifying job titles, descriptions, salaries, and work arrangements.
+They can review and manage job applications received from job seekers.
+Database Structure:
 
-## Learning Laravel
+Users Table:
+Stores user information, including name, email, contact number, password, and role.
+Includes timestamps for user creation and updates.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Roles Table:
+Defines user roles, such as admin, job seeker, and job poster.
+Keeps track of role names and timestamps.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Employers Table:
+Stores information about employers and their organizations.
+Includes fields for company name, description, services, and timestamps.
+Links to user profiles for authentication.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Jobs Table:
+Contains job listings posted by employers.
+Includes job titles, descriptions, salaries, work types (e.g., onsite, hybrid, WFH), and locations.
+Timestamps are used to track job creation and updates.
 
-## Laravel Sponsors
+Applications Table:
+Tracks job applications submitted by job seekers.
+Records the status of each application (pending, rejected, withdrawn, hired), application date, and timestamps.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+JobSeekers Table:
+Stores job seeker profiles, including resume information, skills, education details, and timestamps.
+Links to user profiles for authentication.
 
-### Premium Partners
+Models and Relationships:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+User Model (User.php):
+Belongs To: Role
+Has One: Employer
+Has One: JobSeeker
+Has Many: Posted Jobs
+Has Many: Job Applications
 
-## Contributing
+Role Model (Role.php):
+Has One: Users
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Employer Model (Employer.php):
+Belongs To: User
+Has One: Posted Job
 
-## Code of Conduct
+Job Model (Job.php):
+Belongs To: Poster (User)
+Belongs To: Employer
+Has Many: Job Applications
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Application Model (Application.php):
+Belongs To: Job
+Belongs To: Job Seeker (User)
 
-## Security Vulnerabilities
+JobSeeker Model (JobSeeker.php):
+Belongs To: User
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Key Features:
 
-## License
+Authentication and Authorization:
+Users can register and log in securely.
+Role-based access control ensures that users have appropriate permissions.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Job Posting:
+Job posters can create and manage detailed job listings.
+Jobs are associated with the poster's user account.
+Key job details are provided, such as title, description, salary, and work type.
+
+Job Search and Application:
+Job seekers can search for and view job listings.
+They can apply for jobs by submitting applications.
+Application statuses (e.g., pending, accepted, rejected) are tracked.
+
+User Dashboard:
+Users have personalized dashboards displaying relevant information.
+Job seekers can monitor their applications and statuses.
+Job posters can manage their job listings and review applications.
+
+Notifications:
+Users receive notifications regarding application updates.
+Admins receive notifications related to user and role management.
+
+User Profiles:
+Users can enhance their profiles with additional details, such as skills and educational history.
+Job seekers can showcase their qualifications and experiences.
