@@ -39,20 +39,6 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                        @auth
-                            <li class="nav-item">
-                                <a class="nav-link active" href="{{ route('home') }}">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('job_seeker.application.index') }}">Job Application</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('bookmark.index') }}">Bookmark</a>
-                            </li>
-                        @endauth
-                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -70,30 +56,19 @@
                                 </li>
                             @endif
                         @else
-                            
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('job_seeker.profile.index') }}">
-                                        {{ __('Profile') }}
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('job_seeker.account_settings.index') }}">
-                                        {{ __('Account Settings') }}
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+                          @if(in_array(auth()->user()->role->role,[1]) )
+                            <li class="nav-item">
+                              <a class="nav-link active" href="{{ route('admin.dashboard') }}">Home</a>
                             </li>
+                          @elseif(in_array(auth()->user()->role->role,[2]))
+                            <li class="nav-item">
+                              <a class="nav-link active" href="{{ route('employer.dashboard') }}">Home</a>
+                            </li>
+                          @else
+                            <li class="nav-item">
+                              <a class="nav-link active" href="{{ route('home') }}">Home</a>
+                            </li>
+                          @endif
                         @endguest
                     </ul>
                 </div>

@@ -19,6 +19,7 @@ use App\Http\Controllers\JobSeeker\JobSeekerJobController;
 use App\Http\Controllers\JobSeeker\JobSeekerProfileController;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
