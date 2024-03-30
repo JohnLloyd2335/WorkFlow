@@ -1,6 +1,6 @@
 @extends('job_seeker.layouts.app')
 @section('content')
-    <div class="container border rounded">
+    <div class="container border rounded my-4">
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
@@ -15,12 +15,12 @@
             </div>
         @endif
         <div class="d-flex align-items-center justify-content-start py-2 gap-3">
-          <a href="{{ route('job_seeker.application.index') }}" class="btn"><i class="fas fa-chevron-left"></i>Back</a>
+            <a href="{{ route('job_seeker.application.index') }}" class="btn"><i class="fas fa-chevron-left"></i>Back</a>
         </div>
         <div class="row px-3 py-2">
-         
+
             <div class="col col-md-5 col-sm-12">
-              
+
                 <div class="row d-flex flex-column">
                     <div class="col">
                         <h2>{{ $application->job->title }}</h2>
@@ -48,8 +48,9 @@
             </div>
             <div class="col col-md-7 col-sm-12">
                 <h4>Description:</h4>
-                <p class="lead" style="text-align: justify; text-justify: inter-word">{{ $application->job->description }}</p>
-                
+                <p class="lead" style="text-align: justify; text-justify: inter-word">
+                    {{ $application->job->description }}</p>
+
             </div>
         </div>
     </div>

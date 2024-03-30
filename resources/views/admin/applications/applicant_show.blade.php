@@ -20,8 +20,7 @@
                                     <a href="{{ route('admin.applications.index') }}">Applications</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    <a
-                                        href="{{ route('admin.applications.show', $application->job->id) }}">Application</a>
+                                    <a href="{{ route('admin.applications.show', $application->job->id) }}">Application</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     <a href="{{ route('admin.application.applicant.show', $application) }}">Applicant</a>
@@ -62,7 +61,7 @@
         @endif
 
 
-        <div class="row">
+        <div class="row mx-5">
             <div class="col-lg-12 mb-4 mb-sm-5 border">
                 <div class="card card-style1 border-0">
                     <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">

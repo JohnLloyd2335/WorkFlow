@@ -15,12 +15,12 @@
             </div>
         @endif
         <div class="d-flex align-items-center justify-content-start py-2 gap-3">
-          <a href="{{ route('home') }}" class="btn"><i class="fas fa-chevron-left"></i>Back</a>
+            <a href="{{ route('home') }}" class="btn"><i class="fas fa-chevron-left"></i>Back</a>
         </div>
         <div class="row px-3 mt-5">
-         
+
             <div class="col col-md-5 col-sm-12">
-              
+
                 <div class="row d-flex flex-column">
                     <div class="col">
                         <h2>{{ $job->title }}</h2>
@@ -44,9 +44,10 @@
                     </div>
 
                     <div class="col d-flex align-items-start justify-content-start gap-2 mt-2 py-2">
-                        <form action="{{ route('job_seeker.application.store',$job) }}" method="post">
+                        <form action="{{ route('job_seeker.application.store', $job) }}" method="post">
                             @csrf
-                            <button type="submit" class="btn btn-outline-primary btn-lg" @disabled(in_array($job->id, $application_job_ids))>Apply</button>
+                            <button type="submit" class="btn btn-outline-primary btn-lg"
+                                @disabled(in_array($job->id, $application_job_ids))>Apply</button>
                         </form>
                         <form action="{{ route('bookmark.store', $job) }}" method="post">
                             @csrf

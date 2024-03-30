@@ -19,7 +19,9 @@ class JobSeekerProfileController extends Controller
     {
         $auth_resumes = auth()->user()->jobSeeker->getMedia('resumes');
 
-        return view('job_seeker.profile',compact('auth_resumes'));
+        $highest_education = JobSeeker::where('user_id', auth()->user()->id)->limit(1)->orderByDesc('id')->get();
+
+        return view('job_seeker.profile', compact('auth_resumes', 'highest_education'));
     }
 
     public function updateProfile(UpdateProfileRequest $request, User $user)
@@ -27,10 +29,10 @@ class JobSeekerProfileController extends Controller
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'mobile_number' => $request->mobile_number 
+            'mobile_number' => $request->mobile_number
         ]);
 
-        return redirect()->back()->with('success','Profile Successfully Updated');
+        return redirect()->back()->with('success', 'Profile Successfully Updated');
     }
 
     public function addEducation(StoreEducationRequest $request)
@@ -43,7 +45,7 @@ class JobSeekerProfileController extends Controller
             'school_name' => $request->school_name
         ]);
 
-        return redirect(route('job_seeker.profile.index'))->with('success','Education Successfully Added');
+        return redirect(route('job_seeker.profile.index'))->with('success', 'Education Successfully Added');
     }
 
     public function updateEducation(UpdateEducationRequest $request, User $user)
@@ -55,15 +57,15 @@ class JobSeekerProfileController extends Controller
             'school_name' => $request->school_name
         ]);
 
-        return redirect(route('job_seeker.profile.index'))->with('success','Education Successfully Updated');
+        return redirect(route('job_seeker.profile.index'))->with('success', 'Education Successfully Updated');
     }
 
     public function addSkill(StoreSkillRequest $request, User $user)
     {
-        $skill_count = Skill::where('job_seeker_id',$user->jobSeeker->id)->count();
+        $skill_count = Skill::where('job_seeker_id', $user->jobSeeker->id)->count();
 
-        if($skill_count >= 5){
-            return redirect(route('job_seeker.profile.index'))->with('error','You reach maximum skill count');
+        if ($skill_count >= 5) {
+            return redirect(route('job_seeker.profile.index'))->with('error', 'You reach maximum skill count');
         }
 
         Skill::create([
@@ -71,13 +73,14 @@ class JobSeekerProfileController extends Controller
             'name' => $request->skill
         ]);
 
-        return redirect(route('job_seeker.profile.index'))->with('success','Skill Successfully Added');
+        return redirect(route('job_seeker.profile.index'))->with('success', 'Skill Successfully Added');
     }
 
-    public function deleteSkill(Skill $skill){
+    public function deleteSkill(Skill $skill)
+    {
         $skill->delete();
 
-        return redirect(route('job_seeker.profile.index'))->with('success','Skill Successfully Deleted');
+        return redirect(route('job_seeker.profile.index'))->with('success', 'Skill Successfully Deleted');
     }
 
     public function addResume(StoreResumeRequest $request, User $user)
@@ -88,11 +91,10 @@ class JobSeekerProfileController extends Controller
         ]);
 
 
-        if($request->hasFile('resume')){
+        if ($request->hasFile('resume')) {
             $user->jobSeeker->addMediaFromRequest('resume')->toMediaCollection('resumes');
         }
 
-        return redirect()->route('job_seeker.profile.index')->with('success','Resume Successfully Added');
-
+        return redirect()->route('job_seeker.profile.index')->with('success', 'Resume Successfully Added');
     }
 }

@@ -1,6 +1,5 @@
 @extends('admin.layouts.header-sidebar')
 @section('content')
-
     <!-- Page wrapper  -->
     <!-- ============================================================== -->
     <div class="page-wrapper">
@@ -23,8 +22,8 @@
                                     <a href="{{ route('admin.manage_users.index') }}">Manage User</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                  <a href="{{ route('admin.manage_users.edit',$user) }}">Edit</a>
-                              </li>
+                                    <a href="{{ route('admin.manage_users.edit', $user) }}">Edit</a>
+                                </li>
                             </ol>
                         </nav>
                     </div>
@@ -39,7 +38,7 @@
         <!-- ============================================================== -->
         <div class="container-fluid">
             <div class="my-2">
-                @if(session('success'))
+                @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('success') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -49,41 +48,51 @@
             <!-- ============================================================== -->
             <!-- Start Page Content -->
             <!-- ============================================================== -->
-          
+
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                              <form action="{{ route('admin.manage_users.update',$user) }}" method="post" style="display: inline">
-                                @csrf
-                                @method('PUT')
-                                <div class="col">
-                                  <label>Name</label>
-                                  <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
-                                  @error('name')
-                                      <p class="text-danger">{{ $message }}</p>
-                                  @enderror
-                                </div>
-                                <div class="col">
-                                  <label>Email</label>
-                                  <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
-                                  @error('email')
-                                      <p class="text-danger">{{ $message }}</p>
-                                  @enderror
-                                </div>
-                                <div class="col">
-                                  <label>Mobile Number</label>
-                                  <input type="number" name="mobile_number" class="form-control @error('mobile_number') is-invalid @enderror" value="{{ old('mobile_number') }}">
-                                  @error('mobile_number')
-                                      <p class="text-danger">{{ $message }}</p>
-                                  @enderror
-                                </div>
-                                <div class="col">
-                                  <button type="submit" class="btn btn-primary float-end">Update</button>
-                                </div>
-                              </form>
-                              
+                                <form action="{{ route('admin.manage_users.update', $user) }}" method="post"
+                                    style="display: inline" id="editUserForm">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="col">
+                                        <label>Name</label>
+                                        <input type="text" name="name"
+                                            class="form-control @error('name') is-invalid @enderror"
+                                            value="{{ $user->name }}">
+                                        @error('name')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="col">
+                                        <label>Email</label>
+                                        <input type="email" name="email"
+                                            class="form-control @error('email') is-invalid @enderror"
+                                            value="{{ $user->email }}">
+                                        @error('email')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="col">
+                                        <label>Mobile Number</label>
+                                        <input type="number" name="mobile_number"
+                                            class="form-control @error('mobile_number') is-invalid @enderror"
+                                            value="{{ $user->mobile_number }}">
+                                        @error('mobile_number')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="col d-flex align-items-center justify-content-end gap-2 my-2">
+                                        <a href="{{ route('admin.manage_users.index') }}"
+                                            class="btn btn-secondary">Cancel</a>
+                                        <button type="submit" class="btn btn-primary">Update</button>
+
+                                    </div>
+                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -104,14 +113,7 @@
         <!-- End Container fluid  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
-        <!-- footer -->
-        <!-- ============================================================== -->
-        <footer class="footer text-center">
-            All Rights Reserved by Nice admin. Designed and Developed by
-            <a href="https://www.wrappixel.com">WrapPixel</a>.
-        </footer>
-        <!-- ============================================================== -->
-        <!-- End footer -->
+
         <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
@@ -122,6 +124,4 @@
     <!-- End Wrapper -->
     <!-- ============================================================== -->
     <!-- ============================================================== -->
-
-    
 @endsection
