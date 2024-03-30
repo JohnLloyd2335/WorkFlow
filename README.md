@@ -4,7 +4,9 @@ Description:
 The job board application is a platform designed to facilitate the job search and recruitment process. It provides distinct user roles, including administrators, job seekers, and job posters, each with specific functionalities and access levels.
 
 Developer Skill: Advance Beginner
+
 Backend Framework: Laravel 10
+
 Frontend: HTML, CSS, Bootstrap, Blade ,JavaScript
 
 User Roles:
