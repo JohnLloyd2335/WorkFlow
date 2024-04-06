@@ -1,6 +1,6 @@
 @extends('job_seeker.layouts.app')
 @section('content')
-    <div class="container border rounded">
+    <div class="container border rounded my-5">
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}

@@ -12,7 +12,6 @@ class BookmarkController extends Controller
 {
     public function index(Request $request)
     {
-
         if ($request->ajax()) {
             $bookmarks = Bookmark::with('jobSeeker', 'job')->where('job_seeker_id', auth()->user()->jobSeeker->id)->get();
 
@@ -42,7 +41,7 @@ class BookmarkController extends Controller
                     
                 </div>";
                 })
-                ->rawColumns(['job_title', 'company', 'work_type', 'action'])
+                ->rawColumns(['job_title', 'company', 'work_type', 'salary', 'date_added', 'action'])
                 ->make(true);
         }
 

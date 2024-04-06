@@ -47,7 +47,7 @@ class JobSeekerApplicationController extends Controller
                         </form>
                     </div>";
                 })
-                ->rawColumns(['job_title', 'company', 'work_type', 'action'])
+                ->rawColumns(['job_title', 'company', 'work_type', 'salary', 'date_applied', 'action'])
                 ->make(true);
         }
 

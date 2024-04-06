@@ -1,5 +1,5 @@
 <div>
-    <div class="container-fluid">
+    <div class="container-fluid my-5">
 
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -143,7 +143,7 @@
                                 <!-- -->
                             @empty
                                 <div class="d-flex align-items-center justify-content-center my-2 p-5">
-                                    <h3 class="text-center py-2">No Jobs Found.</h3>
+                                    <h3 class="text-center py-2">No Job Found.</h3>
                                 </div>
                             @endforelse
 

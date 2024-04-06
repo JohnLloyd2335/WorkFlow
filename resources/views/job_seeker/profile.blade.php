@@ -1,7 +1,7 @@
 @extends('job_seeker.layouts.app')
 @section('content')
     <section class="bg-light">
-        <div class="container">
+        <div class="container my-2">
             @if ($errors->any())
                 <div class="alert alert-danger alert-dismissible fade show my-1" role="alert">
                     <ul>
@@ -71,17 +71,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-
-                                {{-- <td>{{ auth()->user()->jobSeeker->highest_education ?? 'Not Set' }}</td>
-                                    <td>
-                                        @if (isset(auth()->user()->jobSeeker->date_graduated))
-                                            {{ date('M d, Y', strtotime(auth()->user()->jobSeeker->date_graduated)) ?? 'Not Set' }}
-                                        @else
-                                            {{ 'Not Set' }}
-                                        @endif
-                                    </td>
-                                    <td>{{ auth()->user()->jobSeeker->field_of_study ?? 'Not Set' }}</td>
-                                    <td>{{ auth()->user()->jobSeeker->school_name ?? 'Not Set' }}</td> --}}
 
                                 @forelse ($highest_education as $education)
                                     <tr>

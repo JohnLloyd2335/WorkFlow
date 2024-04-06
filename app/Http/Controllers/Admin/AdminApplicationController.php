@@ -12,7 +12,9 @@ class AdminApplicationController extends Controller
 {
     public function index(Request $request)
     {
-        $jobs = Job::has('applications')->with(['applications'])->withCount('applications')->get();
+        $jobs = Job::has('applications')->with(['applications'])->withCount(['applications' => function ($query) {
+            $query->whereIn('application_status', ['Pending', 'Interview Scheduled']);
+        }])->get();
 
         if ($request->ajax()) {
             return DataTables::of($jobs)
@@ -21,7 +23,7 @@ class AdminApplicationController extends Controller
                     return $job->applications[0]->id;
                 })
                 ->addColumn('salary', function ($job) {
-                    return "₱".number_format($job->salary,2);
+                    return "₱" . number_format($job->salary, 2);
                 })
                 ->addColumn('action', function ($job) {
                     return
@@ -29,7 +31,7 @@ class AdminApplicationController extends Controller
                     <a href='" . route('admin.applications.show', $job->id) . "' class='btn btn-success btn-sm text-light'><span class='mdi mdi-eye'></span></a>
                 </div>";
                 })
-                ->rawColumns(['application_id', 'action','salary'])
+                ->rawColumns(['application_id', 'action', 'salary'])
                 ->make(true);
         }
 
@@ -38,10 +40,14 @@ class AdminApplicationController extends Controller
 
     public function show(string $id, Request $request)
     {
-        $job = Job::has('applications')->with(['applications'])->withCount('applications')->findOrFail($id);
+        $job = Job::with('employer')->withCount(['applications' => function ($query) {
+            $query->whereIn('application_status', ['Pending', 'Interview Scheduled']);
+        }])->find($id);
+
+        $applications = Application::with('jobSeeker')->where('job_id', $id)->get();
 
         if ($request->ajax()) {
-            return DataTables::of($job->applications)
+            return DataTables::of($applications)
                 ->addIndexColumn()
                 ->addColumn('applicant_name', function ($application) {
                     return $application->jobSeeker->user->name;
@@ -70,7 +76,7 @@ class AdminApplicationController extends Controller
                 ->make(true);
         }
 
-        return view('admin.applications.show', compact('job'));
+        return view('admin.applications.show', compact('job', 'applications'));
     }
 
     public function showApplicant(string $id)

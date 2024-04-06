@@ -19,7 +19,8 @@ class JobSeekerProfileController extends Controller
     {
         $auth_resumes = auth()->user()->jobSeeker->getMedia('resumes');
 
-        $highest_education = JobSeeker::where('user_id', auth()->user()->id)->limit(1)->orderByDesc('id')->get();
+        $highest_education = JobSeeker::select('highest_education', 'date_graduated', 'field_of_study', 'school_name')->where('user_id', auth()->user()->id)->whereNotNull('highest_education')->get();
+
 
         return view('job_seeker.profile', compact('auth_resumes', 'highest_education'));
     }
@@ -37,8 +38,7 @@ class JobSeekerProfileController extends Controller
 
     public function addEducation(StoreEducationRequest $request)
     {
-        JobSeeker::create([
-            'user_id' => auth()->user()->id,
+        auth()->user()->jobSeeker->update([
             'highest_education' => $request->highest_education,
             'date_graduated' => $request->date_graduated,
             'field_of_study' => $request->field_of_study,
