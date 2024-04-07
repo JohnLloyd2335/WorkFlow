@@ -52,16 +52,22 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'role' => ['required','numeric','in:1,2'],
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'mobile_number' => ['required', 'numeric', 'digits:11','unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'company_name' => ['required_if:role_id,1','max:255'],
-            'services' => ['required_if:role_id,1','max:255'],
-            'company_description' => ['required_if:role_id,1','max:255']
-        ]);
+        return Validator::make(
+            $data,
+            [
+                'role' => ['required', 'numeric', 'in:2,3'],
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'mobile_number' => ['required', 'numeric', 'digits:11', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'company_name' => ['required_if:role,2', 'max:255'],
+                'services' => ['required_if:role,2', 'max:255'],
+                'company_description' => ['required_if:role,2', 'max:255']
+            ],
+            [
+                'required_if' => 'The company name field is required when user type is employer.'
+            ]
+        );
     }
 
     /**
@@ -72,10 +78,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if(in_array($data['role'],['1'])){
+        if (in_array($data['role'], ['2'])) {
             $role = Role::create([
                 'role' => '2'
-            ]); 
+            ]);
 
             $user = User::create([
                 'name' => $data['name'],
@@ -90,12 +96,11 @@ class RegisterController extends Controller
                 'company_name' => $data['company_name'],
                 'company_description' => $data['company_description'],
                 'services' => $data['services']
-               ]);
-        }
-        else{
+            ]);
+        } else {
             $role = Role::create([
                 'role' => '3'
-            ]); 
+            ]);
 
             $user = User::create([
                 'name' => $data['name'],
