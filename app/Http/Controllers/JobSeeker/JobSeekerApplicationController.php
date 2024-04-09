@@ -40,7 +40,7 @@ class JobSeekerApplicationController extends Controller
 
                     return
                         "<div class='d-flex align-items-center justify-content-around gap-2'>
-                        <a href='" . route('job_seeker.application.show', $application) . "' class='btn btn-success btn-sm'><i class='fas fa-eye'></i></a> 
+                        <a href='" . route('job_seeker.jobs.show', $application->job) . "' class='btn btn-success btn-sm'><i class='fas fa-eye'></i></a> 
                             <button data-id='$application->id' class='btn btn-danger btn-sm text-light withDrawnButton' " . $isDisabled . ">
                                 <i class='fa-solid fa-x'></i>
                             </button>

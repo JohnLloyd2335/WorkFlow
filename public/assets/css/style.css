@@ -291,10 +291,11 @@ footer .footer{
 }
 
 .job.info .items span{
-  font-size: 50px;
+  font-size: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 5px;
 }
 
 #login-left-side{
@@ -377,6 +378,10 @@ footer .footer{
 
 textarea{
   resize: none;
+}
+
+#logout{
+  cursor: pointer;
 }
 
 

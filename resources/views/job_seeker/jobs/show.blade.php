@@ -1,21 +1,9 @@
 @extends('job_seeker.layouts.app')
 @section('content')
-    <div class="container border rounded my-5">
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-
-        @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+    <div class="container border rounded my-5 mb-5">
+        @include('includes.alert')
         <div class="d-flex align-items-center justify-content-start py-2 gap-3">
-            <a href="{{ route('home') }}" class="btn"><i class="fas fa-chevron-left"></i>Back</a>
+            <a href="{{ route('job_seeker.jobs.index') }}" class="btn"><i class="fas fa-chevron-left"></i>Back</a>
         </div>
         <div class="row px-3 mt-5">
 
@@ -46,12 +34,12 @@
                     <div class="col d-flex align-items-start justify-content-start gap-2 mt-2 py-2">
                         <form action="{{ route('job_seeker.application.store', $job) }}" method="post">
                             @csrf
-                            <button type="submit" class="btn btn-outline-primary btn-lg"
+                            <button type="submit" class="btn btn-outline-dark btn-lg"
                                 @disabled(in_array($job->id, $application_job_ids))>Apply</button>
                         </form>
                         <form action="{{ route('bookmark.store', $job) }}" method="post">
                             @csrf
-                            <button class="btn btn-outline-primary btn-lg" @disabled(in_array($job->id, $bookmark_job_ids))>Bookmark</button>
+                            <button class="btn btn-outline-dark btn-lg" @disabled(in_array($job->id, $bookmark_job_ids))>Bookmark</button>
                         </form>
                     </div>
                 </div>

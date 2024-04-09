@@ -1,4 +1,4 @@
-@extends('guest_layout.app')
+@extends('job_seeker.layouts.app')
 
 @section('content')
 <div class="container">

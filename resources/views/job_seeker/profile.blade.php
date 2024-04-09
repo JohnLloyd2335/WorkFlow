@@ -51,7 +51,7 @@
                                             {{ auth()->user()->mobile_number }}</li>
 
                                     </ul>
-                                    <button class="btn btn-primary mt-1 float-end" data-bs-toggle="modal"
+                                    <button class="main-button-sm" data-bs-toggle="modal"
                                         data-bs-target="#editProfileModal">Edit</button>
                                 </div>
                             </div>
@@ -91,10 +91,10 @@
 
                         <div class="d-flex align-items-center justify-content-end gap-2">
                             @if ($highest_education->count() > 0)
-                                <button class="btn btn-primary mt-1 float-end" data-bs-toggle="modal"
+                                <button class="main-button-sm" data-bs-toggle="modal"
                                     data-bs-target="#editEducationModal">Edit</button>
                             @else
-                                <button class="btn btn-primary mt-1 float-end" data-bs-toggle="modal"
+                                <button class="main-button-sm" data-bs-toggle="modal"
                                     data-bs-target="#addEducationModal">Add</button>
                             @endif
 
@@ -111,7 +111,7 @@
 
                             @foreach (auth()->user()->jobSeeker->skill as $skill)
                                 <form action="{{ route('job_seeker.profile.skill.destroy', $skill) }}" method="post">
-                                    <span class="bg-primary text-light fw-bold px-1 py-2 rounded">{{ $skill->name }}
+                                    <span class="bg-dark text-light fw-bold px-1 py-2 rounded">{{ $skill->name }}
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm text-light strong"><i
@@ -121,7 +121,7 @@
                             @endforeach
 
                         </div>
-                        <button class="btn btn-primary mt-1 float-end" data-bs-toggle="modal" data-bs-target="#skillModal"
+                        <button class="main-button-sm my-2" data-bs-toggle="modal" data-bs-target="#skillModal"
                             @disabled(auth()->user()->jobSeeker->skill->count() >= 5)>Add</button>
 
 
@@ -133,7 +133,7 @@
                         @if (isset(auth()->user()->jobSeeker->resume_file_path))
                             @foreach ($auth_resumes as $auth_resume)
                                 <a target="_blank" href="{{ auth()->user()->jobSeeker->getFirstMediaUrl('resumes') }}"
-                                    class="rounded py-3 px-2 text-decoration-none bg-primary text-light d-flex align-items-center justify-content-start gap-1 px-3"
+                                    class="rounded py-3 px-2 text-decoration-none bg-dark text-light d-flex align-items-center justify-content-start gap-1 px-3"
                                     style="">
                                     <i class="fa-solid fa-file-pdf fa-2x"></i>
                                     {{ $auth_resume->name }}
@@ -145,7 +145,7 @@
                                 @csrf
                                 @method('PUT')
                                 <input type="file" name="resume" class="form-control">
-                                <button class="btn btn-primary mt-1 float-end">Upload</button>
+                                <button class="main-button-sm my-2">Upload</button>
                             </form>
                         @endif
 

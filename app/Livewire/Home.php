@@ -31,9 +31,6 @@ class Home extends Component
             $jobs->where('work_type', $this->work_type);
         }
 
-        // if (isset($this->min, $this->max)) {
-        //     $jobs->whereBetween('salary', [$this->min, $this->max]);
-        // }
 
         if (!empty($this->search)) {
             $jobs->where('title', 'like', '%' . $this->search . '%');

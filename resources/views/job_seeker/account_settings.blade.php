@@ -2,29 +2,29 @@
 @section('content')
     <section class="bg-light">
         <div class="container">
-            @if($errors->any())
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-                </ul>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             @endif
 
-            @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             @endif
 
-            @if(session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+            @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             @endif
 
 
@@ -51,8 +51,8 @@
                                             {{ auth()->user()->mobile_number }}</li>
 
                                     </ul>
-                                    <button class="btn btn-primary mt-1 float-end" data-bs-toggle="modal"
-                                    data-bs-target="#editProfileModal">Edit</button>
+                                    <button class="main-button-sm" data-bs-toggle="modal"
+                                        data-bs-target="#editProfileModal">Edit</button>
                                 </div>
                             </div>
                         </div>
@@ -62,90 +62,96 @@
                     <div>
                         <h3>Change Password</h3>
                         <form action="{{ route('job_seeker.account_settings.change_password') }}" method="post">
-                          @csrf
-                          @method('PUT')
-                          <div class="row">
-                            <div class="col col-md-6 col-sm-12">
-                              <label>New Password</label>
-                              <input type="password" name="password" class="form-control @error('password') is-invalid @enderror">
-                              @error('password')
-                                  <p class="text-danger">{{ $message }}</p>
-                              @enderror
+                            @csrf
+                            @method('PUT')
+                            <div class="row">
+                                <div class="col col-md-6 col-sm-12">
+                                    <label>New Password</label>
+                                    <input type="password" name="password"
+                                        class="form-control @error('password') is-invalid @enderror">
+                                    @error('password')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="col col-md-6 col-sm-12">
+                                    <label>Confirm Password</label>
+                                    <input type="password" name="password_confirmation"
+                                        class="form-control @error('password_confirmation') is-invalid @enderror">
+                                    @error('password_confirmation')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
-                            <div class="col col-md-6 col-sm-12">
-                              <label>Confirm Password</label>
-                              <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror">
-                              @error('password_confirmation')
-                                <p class="text-danger">{{ $message }}</p>
-                              @enderror
+                            <div class="row my-2">
+                                <div class="col">
+                                    <button type="submit" class="main-button-sm" type="password">Update</button>
+                                </div>
                             </div>
-                          </div>
-                          <div class="row my-2">
-                            <div class="col">
-                              <button type="submit" class="btn btn-primary float-end" type="password">Update</button>
-                            </div>
-                          </div>
                         </form>
                     </div>
                 </div>
-               
+
 
             </div>
         </div>
     </section>
 
-    
 
 
-        <!-- Profile Modal -->
-        <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('job_seeker.profile.update',auth()->user()) }}" method="post">
-                            @csrf
-                            @method('PUT')
-                            <div class="row">
-                                <div class="col">
-                                    <label>Name</label>
-                                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
-                                    @error('name')
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
+
+    <!-- Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('job_seeker.profile.update', auth()->user()) }}" method="post">
+                        @csrf
+                        @method('PUT')
+                        <div class="row">
+                            <div class="col">
+                                <label>Name</label>
+                                <input type="text" name="name"
+                                    class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
+                                @error('name')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label>Email</label>
-                                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
-                                    @error('email')
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>Email</label>
+                                <input type="email" name="email"
+                                    class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
+                                @error('email')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label>Mobile Number</label>
-                                    <input type="number" name="mobile_number" class="form-control @error('mobile_number') is-invalid @enderror" value="{{ old('mobile_number') }}">
-                                    @error('mobile_number')
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>Mobile Number</label>
+                                <input type="number" name="mobile_number"
+                                    class="form-control @error('mobile_number') is-invalid @enderror"
+                                    value="{{ old('mobile_number') }}">
+                                @error('mobile_number')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
-                        
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                     </form>
-                    </div>
                 </div>
             </div>
         </div>
-        <!-- Profile Modal -->
+    </div>
+    <!-- Profile Modal -->
 
 @endsection

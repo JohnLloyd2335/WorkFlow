@@ -1,4 +1,4 @@
-@extends('guest_layout.app')
+@extends('job_seeker.layouts.app')
 @section('content')
     <div class="container-fluid">
         <img src="{{ asset('assets/images/hero-bg.png') }}" alt="Hero Image" class="hero-bg" />
@@ -13,6 +13,6 @@
             error ipsum nobis natus. Totam perferendis minima consequuntur quae illo
             est.
         </p>
-        <button id="see-jobs">See Jobs</button>
+        <a id="see-jobs" href="{{ route('job_seeker.jobs.index') }}">See Jobs</a>
     </div>
 @endsection

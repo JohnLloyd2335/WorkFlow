@@ -31,15 +31,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('index');
+
 
 Auth::routes();
 
-Route::view('login2', 'auth.login2');
+// Route::view('login2', 'auth.login2');
 
-
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/jobs', [JobSeekerJobController::class, 'index'])->name('job_seeker.jobs.index');
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -96,9 +95,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('account_settings/password/update', [EmployerAccountSettingsController::class, 'changePassword'])->name('employer.account_settings.change_password');
     });
 
+
+
     Route::group(['middleware' => ['job_seeker'], 'prefix' => 'job_seeker'], function () {
 
-        Route::get('/home', [HomeController::class, 'index'])->name('home');
 
         Route::get('/profile', [JobSeekerProfileController::class, 'index'])->name('job_seeker.profile.index');
         Route::put('/profile/{user}/update', [JobSeekerProfileController::class, 'updateProfile'])->name('job_seeker.profile.update');
@@ -107,6 +107,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('profile/{user}/resume', [JobSeekerProfileController::class, 'addResume'])->name('job_seeker.profile.resume.store');
         Route::post('/profile/{user}/skill', [JobSeekerProfileController::class, 'addSkill'])->name('job_seeker.profile.skill.store');
         Route::delete('/profile/{skill}/skill', [JobSeekerProfileController::class, 'deleteSkill'])->name('job_seeker.profile.skill.destroy');
+
 
         Route::get('/job/{job}', [JobSeekerJobController::class, 'show'])->name('job_seeker.jobs.show');
         Route::get('bookmark', [BookmarkController::class, 'index'])->name('bookmark.index');

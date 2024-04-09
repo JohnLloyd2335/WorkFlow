@@ -10,6 +10,13 @@ use App\Models\Job;
 
 class JobSeekerJobController extends Controller
 {
+
+    public function index()
+    {
+
+        return view('job_seeker.jobs.index');
+    }
+
     public function show(Job $job)
     {
         $job->load('employer');
@@ -24,6 +31,6 @@ class JobSeekerJobController extends Controller
             ->toArray();
 
 
-        return view('job_seeker.job', compact('job', 'bookmark_job_ids', 'application_job_ids'));
+        return view('job_seeker.jobs.show', compact('job', 'bookmark_job_ids', 'application_job_ids'));
     }
 }
