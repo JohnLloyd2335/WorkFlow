@@ -33,6 +33,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::view('mail/interview', 'mail.application.interview-scheduled-application');
+
 Route::middleware('guest')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/jobs', [JobSeekerJobController::class, 'index'])->name('job_seeker.jobs.index');

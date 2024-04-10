@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Employer\UpdateApplicationStatusRequest;
+use App\Mail\Application\InterviewScheduledApplication;
+use App\Mail\Application\RejectedApplication;
 use App\Models\Application;
 use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\Facades\DataTables;
 
 class EmployerApplicationController extends Controller
@@ -108,10 +111,30 @@ class EmployerApplicationController extends Controller
     public function update(Application $application, UpdateApplicationStatusRequest $request)
     {
 
-        $application->update([
-            'application_status' => $request->application_status
-        ]);
+        if ($request->has('application_status')) {
 
+            $application->load(['jobSeeker', 'job']);
+
+            $receiver = $application->jobSeeker->user->email;
+
+            $mailData = [
+                'job_seeker' => $application->jobSeeker->user->name,
+                'position_applied' => $application->job->title,
+                'company_name' => $application->job->employer->company_name
+            ];
+
+            if ($request->application_status == "Interview Scheduled") {
+                $mailData['date_time'] = $request->interview_date_time;
+                Mail::to($receiver)->send(new InterviewScheduledApplication($mailData));
+            } else {
+                $mailData['rejection_reason'] = $request->rejection_reason;
+                Mail::to($receiver)->send(new RejectedApplication($mailData));
+            }
+
+            $application->update([
+                'application_status' => $request->application_status
+            ]);
+        }
 
         return redirect(route('employer.applications.show', $application->job))->with('success', 'Application Status Successfully Updated');
     }

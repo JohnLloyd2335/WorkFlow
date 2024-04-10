@@ -138,7 +138,7 @@
                                             @error('application_status')
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
-                                            <div id="interviewed-scheduled-fields" class="d-none">
+                                            <div id="interviewed-scheduled-fields" class="d-none my-2">
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <label>Interview Date and Time Schedule</label>
@@ -147,7 +147,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div id="rejected-fields" class="d-none">
+                                            <div id="rejected-fields" class="d-none my-2">
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <label>Reason for Rejection</label>
