@@ -31,14 +31,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
 Auth::routes();
 
-// Route::view('login2', 'auth.login2');
+Route::middleware('guest')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/jobs', [JobSeekerJobController::class, 'index'])->name('job_seeker.jobs.index');
+});
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/jobs', [JobSeekerJobController::class, 'index'])->name('job_seeker.jobs.index');
 
 Route::group(['middleware' => ['auth']], function () {
 

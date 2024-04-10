@@ -22,7 +22,10 @@ class UpdateApplicationStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'application_status' => ['required']
+            'application_status' => ['required'],
+            'interview_date_time' => ['required_if:application_status,Interview Scheduled'],
+            'rejection_reason' => ['required_if:application_status,Rejected'],
+
         ];
     }
 }

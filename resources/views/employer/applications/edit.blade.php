@@ -29,8 +29,9 @@
 
                                 <li class="breadcrumb-item active" aria-current="page">
 
-                                  <a href="{{ route('employer.application.applicant.edit', $application) }}">Edit Status</a>
-                              </li>
+                                    <a href="{{ route('employer.application.applicant.edit', $application) }}">Edit
+                                        Status</a>
+                                </li>
 
                             </ol>
                         </nav>
@@ -41,30 +42,32 @@
     </div>
 
     <div class="container px-5">
-        @if ($errors->any())
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+        <div class="mx-2 ml-5 my-2">
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
 
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
 
-        @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+            @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+        </div>
 
 
         <div class="row">
@@ -112,28 +115,48 @@
                                     <li><span class="display-26 text-secondary me-2 font-weight-600">Date Applied:</span>
                                         {{ date('M d, Y h:i A', strtotime($application->application_date)) }}
                                     </li>
-                                    <li><span class="display-26 text-secondary me-2 font-weight-600">Application Status</span>
-                                      
-                                      {{ $application->application_status }}
+                                    <li><span class="display-26 text-secondary me-2 font-weight-600">Application
+                                            Status</span>
+
+                                        {{ $application->application_status }}
                                     </li>
 
                                     <li class="mt-2">
-                                      <form action="{{ route('employer.application.applicant.update',$application) }}" method="post">
-                                          @csrf
-                                          @method('PUT')
-                                          <label>Edit Application Status</label>
-                                          <select class="form-control @error('application_status') is-invalid @enderror" name="application_status">
-                                            <option @selected($application->application_status == "Pending") value="Pending">Pending</option>
-                                            <option @selected($application->application_status == "Interview Scheduled") value="Interview Scheduled">Interview Scheduled</option>
-                                            <option @selected($application->application_status == "Rejected") value="Rejected">Rejected</option>
-                                            <option @selected($application->application_status == "Withdrawn") value="Withdrawn">Withdrawn</option>
-                                            <option @selected($application->application_status == "Hired") value="Hired">Hired</option>
-                                        </select>
-                                        @error('application_status')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
-                                      <button type="submit" class="btn btn-primary mt-2 float-end">Update</button>
-                                      </form>
+                                        <form action="{{ route('employer.application.applicant.update', $application) }}"
+                                            method="post">
+                                            @csrf
+                                            @method('PUT')
+                                            <label>Edit Application Status</label>
+                                            <select class="form-control @error('application_status') is-invalid @enderror"
+                                                name="application_status" id="application_status">
+                                                <option @selected($application->application_status == 'Pending') value="Pending">Pending</option>
+                                                <option @selected($application->application_status == 'Interview Scheduled') value="Interview Scheduled">Interview
+                                                    Scheduled</option>
+                                                <option @selected($application->application_status == 'Rejected') value="Rejected">Rejected</option>
+                                                <option @selected($application->application_status == 'Hired') value="Hired">Hired</option>
+                                            </select>
+                                            @error('application_status')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                            <div id="interviewed-scheduled-fields" class="d-none">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <label>Interview Date and Time Schedule</label>
+                                                        <input type="datetime-local" name="interview_date_time"
+                                                            class="form-control" value="{{ old('interview_date_time') }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="rejected-fields" class="d-none">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <label>Reason for Rejection</label>
+                                                        <textarea name="rejection_reason" class="form-control" cols="5" rows="5">{{ old('rejection_reason') }}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary mt-2 float-end">Update</button>
+                                        </form>
 
                                     </li>
                                 </ul>
@@ -197,8 +220,8 @@
                     <h4>Resume</h4>
                     @if (isset($application->jobSeeker->resume_file_path))
                         <embed class="d-flex align-items-center justify-content-center"
-                            src="{{ $application->jobSeeker->getFirstMediaUrl('resumes') }}" width="1300" height="1000"
-                            alt="pdf" />
+                            src="{{ $application->jobSeeker->getFirstMediaUrl('resumes') }}" width="1300"
+                            height="1000" alt="pdf" />
                     @endif
 
 
@@ -206,4 +229,27 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#application_status").change(function() {
+                let application_status = $(this).val();
+                let interViewedScheduledContainer = $("#interviewed-scheduled-fields");
+                let rejectedFieldsContainer = $("#rejected-fields");
+
+                if (application_status == "Interview Scheduled") {
+                    interViewedScheduledContainer.show();
+                    interViewedScheduledContainer.removeClass("d-none");
+                    rejectedFieldsContainer.hide();
+                } else if (application_status == "Rejected") {
+                    rejectedFieldsContainer.show();
+                    rejectedFieldsContainer.removeClass("d-none");
+                    interViewedScheduledContainer.hide();
+                } else {
+                    interViewedScheduledContainer.hide();
+                    rejectedFieldsContainer.hide();
+                }
+            })
+        })
+    </script>
 @endsection

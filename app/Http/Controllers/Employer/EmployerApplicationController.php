@@ -73,7 +73,11 @@ class EmployerApplicationController extends Controller
                 </a>";
                 })
                 ->addColumn('action', function ($application) {
-                    return "<a href='" . route('employer.application.applicant.show', $application->id) . "' class='btn btn-success btn-sm text-light'><span class='mdi mdi-eye'></span></a> <a href='" . route('employer.application.applicant.edit', $application) . "' class='btn btn-primary btn-sm text-light'><span class='mdi mdi-pencil'></span></a>";
+                    $applicant_show_route = route('employer.application.applicant.show', $application->id);
+                    $applicant_edit_route = route('employer.application.applicant.edit', $application);
+                    $editButtonClass = in_array($application->application_status, ['Rejected', 'Withdrawn', 'Hired']) ? 'disabled' : '';
+
+                    return "<div class='d-flex align-items-center justify-content-center gap-2'><a href='$applicant_show_route' class='btn btn-success btn-sm text-light'><span class='mdi mdi-eye'></span></a> <a href='$applicant_edit_route' class='btn btn-primary btn-sm text-light $editButtonClass'</a><span class='mdi mdi-pencil'></span></a><div>";
                 })
                 ->addColumn('application_date', function ($application) {
                     return date('M d, Y h:i A', strtotime($application->application_date));

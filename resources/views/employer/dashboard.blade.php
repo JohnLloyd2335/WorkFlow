@@ -166,7 +166,8 @@
                             <h4>Company Name: {{ auth()->user()->employer->company_name }}</h4>
                             <p style="line-height: 0">Services: {{ auth()->user()->employer->services }}</p>
                             <p style="line-height: 0">Company Description:</p>
-                            <p style="text-align: justify; text-justify: inter-word;">{{ auth()->user()->employer->company_description }}</p>
+                            <p style="text-align: justify; text-justify: inter-word;">
+                                {{ auth()->user()->employer->company_description }}</p>
                         </div>
                     </div>
                 </div>
@@ -192,8 +193,7 @@
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer text-center">
-            All Rights Reserved by Nice admin. Designed and Developed by
-            <a href="https://www.wrappixel.com">WrapPixel</a>.
+
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->

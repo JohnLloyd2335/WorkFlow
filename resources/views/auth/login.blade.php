@@ -38,10 +38,10 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-6">
-                                        <a href="{{ route('password.request') }}">Forgot your Password?</a>
+                                        <a class="my-2" href="{{ route('password.request') }}">Forgot your Password?</a>
                                     </div>
                                     <div class="col-6">
-                                        <button type="submit" class="main-button">Login</button>
+                                        <button type="submit" class="main-button my-2">Login</button>
                                     </div>
                                 </div>
                             </div>

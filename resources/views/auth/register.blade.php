@@ -118,7 +118,7 @@
 
                 <div class="row">
                     <div class="col-12 d-flex align-items-center justify-content-end">
-                        <button type="submit" class="btn btn-sm float-end">Register</button>
+                        <button type="submit" class="btn btn-sm float-end my-2">Register</button>
                     </div>
                 </div>
             </form>

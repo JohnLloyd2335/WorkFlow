@@ -112,7 +112,7 @@
         </nav>
 
 
-        <main class="my-5">
+        <main @class(['my-5' => !Route::is('home')])>
             @yield('content')
         </main>
 
@@ -215,7 +215,7 @@
         <!-- Copyright -->
         <div class="text-center p-3 copyright">
             © 2024 Copyright:
-            <a class="text-light" href="{{ route('home') }}">WorkFlow</a>
+            <a class="text-light text-decoration-none" href="{{ route('home') }}">WorkFlow</a>
         </div>
         <!-- Copyright -->
     </footer>

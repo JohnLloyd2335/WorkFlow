@@ -13,6 +13,6 @@
             error ipsum nobis natus. Totam perferendis minima consequuntur quae illo
             est.
         </p>
-        <a id="see-jobs" href="{{ route('job_seeker.jobs.index') }}">See Jobs</a>
+        <a id="see-jobs" class="text-decoration-none" href="{{ route('job_seeker.jobs.index') }}">See Jobs</a>
     </div>
 @endsection
