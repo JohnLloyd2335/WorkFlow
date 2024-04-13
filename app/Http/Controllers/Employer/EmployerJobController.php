@@ -92,6 +92,8 @@ class EmployerJobController extends Controller
     public function update(UpdateJobRequest $request, Job $job)
     {
 
+        $this->authorize('update', $job);
+
         if (!in_array($request->work_type, ['Onsite', 'Hybrid'])) {
             $request->location = 'Not Applicable';
         }

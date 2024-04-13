@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Employer\UpdateApplicationStatusRequest;
+use App\Mail\Application\HiredApplication;
 use App\Mail\Application\InterviewScheduledApplication;
 use App\Mail\Application\RejectedApplication;
 use App\Models\Application;
@@ -19,7 +20,6 @@ class EmployerApplicationController extends Controller
         $jobs = Job::has('applications')->with(['applications'])->withCount(['applications' => function ($query) {
             $query->whereIn('application_status', ['Pending', 'Interview Scheduled']);
         }])->where('employer_id', auth()->user()->employer->id)->get();
-
 
         if ($request->ajax()) {
             return DataTables::of($jobs)
@@ -46,14 +46,11 @@ class EmployerApplicationController extends Controller
     public function show(string $id, Request $request)
     {
 
-
         $job = Job::with('employer')->withCount(['applications' => function ($query) {
             $query->whereIn('application_status', ['Pending', 'Interview Scheduled']);
         }])->find($id);
 
         $applications = Application::with('jobSeeker')->where('job_id', $id)->get();
-
-
 
         if ($request->ajax()) {
             return DataTables::of($applications)
@@ -126,9 +123,11 @@ class EmployerApplicationController extends Controller
             if ($request->application_status == "Interview Scheduled") {
                 $mailData['date_time'] = $request->interview_date_time;
                 Mail::to($receiver)->send(new InterviewScheduledApplication($mailData));
-            } else {
+            } elseif ($request->application_status == "Rejected") {
                 $mailData['rejection_reason'] = $request->rejection_reason;
                 Mail::to($receiver)->send(new RejectedApplication($mailData));
+            } elseif ($request->application_status == "Hired") {
+                Mail::to($receiver)->send(new HiredApplication($mailData));
             }
 
             $application->update([
